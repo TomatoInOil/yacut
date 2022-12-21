@@ -30,7 +30,7 @@ class InvalidAPIUsage(Exception):
 
     def to_dict(self):
         """Сериализатор сообщения об ошибке в словарь."""
-        return dict(error=self.message)
+        return dict(message=self.message)
 
 
 @app.errorhandler(InvalidAPIUsage)

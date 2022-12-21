@@ -15,7 +15,7 @@ def index_view():
         custom_id = form.custom_id.data
         if custom_id:
             if URLMap.query.filter_by(short=custom_id).first() is not None:
-                flash(NON_UNIQUE_CUSTOMID_MSG)
+                flash(NON_UNIQUE_CUSTOMID_MSG % custom_id)
                 return render_template(INDEX_TEMPLATE, form=form)
         else:
             custom_id = get_unique_short_id()
@@ -33,7 +33,7 @@ def index_view():
     return render_template(INDEX_TEMPLATE, form=form)
 
 
-@app.route("/<string:short_id>/")
+@app.route("/<string:short_id>")
 def redirect_view(short_id):
     """Переадресация сокращенных ссылок."""
     url_relation = URLMap.query.filter_by(short=short_id).first()
