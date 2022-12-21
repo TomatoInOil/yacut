@@ -30,7 +30,7 @@ class URLForm(FlaskForm):
     original_link = URLField(
         "Длинная ссылка",
         validators=[
-            DataRequired(message=FIELD_IS_REQUIRED_MSG),
+            DataRequired(message=FIELD_IS_REQUIRED_MSG % "Длинная ссылка"),
             Length(1, 2048),
         ],
     )

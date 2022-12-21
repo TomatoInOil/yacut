@@ -2,6 +2,7 @@ from flask import jsonify, request
 
 from . import app, db
 from .constants import (
+    FIELD_IS_REQUIRED_MSG,
     EMPTY_REQUEST_API_ERROR_MSG,
     ID_NOT_FOUND_API_ERROR_MSG,
     INVALID_SHORT_ID_ERROR_MSG,
@@ -21,7 +22,7 @@ def create_id():
     url = data.get("url")
     custom_id = data.get("custom_id")
     if url is None:
-        raise InvalidAPIUsage('"url" является обязательным полем!')
+        raise InvalidAPIUsage(FIELD_IS_REQUIRED_MSG % "url")
     if custom_id:
         if len(custom_id) > 16:
             raise InvalidAPIUsage(INVALID_SHORT_ID_ERROR_MSG)

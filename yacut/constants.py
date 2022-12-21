@@ -1,6 +1,6 @@
 import string
 
-FIELD_IS_REQUIRED_MSG = "Поле обязательно для заполнения."
+FIELD_IS_REQUIRED_MSG = '"%s" является обязательным полем!'
 NON_UNIQUE_CUSTOMID_MSG = "Имя %s уже занято!"
 NON_UNIQUE_CUSTOMID_API_MSG = 'Имя "%s" уже занято.'
 INVALID_SHORT_ID_ERROR_MSG = "Указано недопустимое имя для короткой ссылки"
