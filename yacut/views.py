@@ -1,4 +1,4 @@
-from flask import abort, flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for
 
 from . import app, db
 from .constants import INDEX_TEMPLATE, NON_UNIQUE_CUSTOMID_MSG
@@ -36,7 +36,5 @@ def index_view():
 @app.route("/<string:short_id>")
 def redirect_view(short_id):
     """Переадресация сокращенных ссылок."""
-    url_relation = URLMap.query.filter_by(short=short_id).first()
-    if url_relation is None:
-        abort(404)
+    url_relation = URLMap.query.filter_by(short=short_id).first_or_404()
     return redirect(url_relation.original)

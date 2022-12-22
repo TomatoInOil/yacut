@@ -1,9 +1,11 @@
+from http import HTTPStatus
+
 from flask import jsonify, request
 
 from . import app, db
 from .constants import (
-    FIELD_IS_REQUIRED_MSG,
     EMPTY_REQUEST_API_ERROR_MSG,
+    FIELD_IS_REQUIRED_MSG,
     ID_NOT_FOUND_API_ERROR_MSG,
     INVALID_SHORT_ID_ERROR_MSG,
     NON_UNIQUE_CUSTOMID_API_MSG,
@@ -35,7 +37,7 @@ def create_id():
     url_object = URLMap(original=url, short=custom_id)
     db.session.add(url_object)
     db.session.commit()
-    return jsonify(url_object.to_dict()), 201
+    return jsonify(url_object.to_dict()), HTTPStatus.CREATED
 
 
 @app.route("/api/id/<string:short_id>/", methods=["GET"])
@@ -43,5 +45,5 @@ def get_url(short_id):
     """Эндпоинт получения ссылки по идентификатору."""
     url_relation = URLMap.query.filter_by(short=short_id).first()
     if url_relation is None:
-        raise InvalidAPIUsage(ID_NOT_FOUND_API_ERROR_MSG, 404)
+        raise InvalidAPIUsage(ID_NOT_FOUND_API_ERROR_MSG, HTTPStatus.NOT_FOUND)
     return jsonify({"url": url_relation.original})
